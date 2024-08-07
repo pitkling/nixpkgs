@@ -1,4 +1,4 @@
-{ stdenv, unsecvars, linuxHeaders, sourceProg, debug ? false }:
+{ stdenv, unsecvars, linuxHeaders, enableRedirect, libredirectPath, redirectProg, sourceProg, debug ? false }:
 # For testing:
 # $ nix-build -E 'with import <nixpkgs> {}; pkgs.callPackage ./wrapper.nix { sourceProg = "${pkgs.hello}/bin/hello"; debug = true; }'
 stdenv.mkDerivation {
@@ -6,6 +6,9 @@ stdenv.mkDerivation {
   buildInputs = [ linuxHeaders ];
   dontUnpack = true;
   CFLAGS = [
+    ''-DLIBREDIRECT="${libredirectPath}"''
+    ''-DENABLE_REDIRECT="${toString enableRedirect}"''
+    ''-DREDIRECT_PROG="${toString redirectProg}"''
     ''-DSOURCE_PROG="${sourceProg}"''
   ] ++ (if debug then [
     "-Werror" "-Og" "-g"
