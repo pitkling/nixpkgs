@@ -9,8 +9,11 @@ let
   # musl is security-focused and generally more minimal, so it's a better choice here.
   # The dynamic linker is still a fairly complex piece of code, and the wrappers are
   # quite small, so linking it statically is more appropriate.
-  securityWrapper = sourceProg : pkgs.pkgsStatic.callPackage ./wrapper.nix {
+  securityWrapper = sourceProg : enableRedirect : redirectProg : pkgs.pkgsStatic.callPackage ./wrapper.nix {
+    inherit enableRedirect;
+    inherit redirectProg;
     inherit sourceProg;
+    libredirectPath = "${pkgs.libredirect}/lib/libredirect.so";
 
     # glibc definitions of insecure environment variables
     #
@@ -44,6 +47,11 @@ let
     options.source = lib.mkOption
       { type = lib.types.path;
         description = "The absolute path to the program to be wrapped.";
+      };
+    options.redirect = lib.mkOption
+      { type = lib.types.nullOr lib.types.path;
+        default = null;
+        description = "The absolute path to the program forks should redirect to (if redirection is enabled; see `enableRedirect`).";
       };
     options.program = lib.mkOption
       { type = with lib.types; nullOr str;
@@ -89,6 +97,7 @@ let
           :::
         '';
       };
+    options.enableRedirect = lib.mkEnableOption "redirection of forks to the wrapper program";
     options.setuid = lib.mkOption
       { type = lib.types.bool;
         default = false;
@@ -105,6 +114,8 @@ let
   mkSetcapProgram =
     { program
     , capabilities
+    , enableRedirect
+    , redirect
     , source
     , owner
     , group
@@ -112,7 +123,7 @@ let
     , ...
     }:
     ''
-      cp ${securityWrapper source}/bin/security-wrapper "$wrapperDir/${program}"
+      cp ${securityWrapper source enableRedirect redirect}/bin/security-wrapper "$wrapperDir/${program}"
 
       # Prevent races
       chmod 0000 "$wrapperDir/${program}"
@@ -130,6 +141,8 @@ let
   ###### Activation script for the setuid wrappers
   mkSetuidProgram =
     { program
+    , enableRedirect
+    , redirect
     , source
     , owner
     , group
@@ -139,7 +152,7 @@ let
     , ...
     }:
     ''
-      cp ${securityWrapper source}/bin/security-wrapper "$wrapperDir/${program}"
+      cp ${securityWrapper source enableRedirect redirect}/bin/security-wrapper "$wrapperDir/${program}"
 
       # Prevent races
       chmod 0000 "$wrapperDir/${program}"
@@ -269,7 +282,7 @@ in
     security.apparmor.includes = lib.mapAttrs' (wrapName: wrap: lib.nameValuePair
      "nixos/security.wrappers/${wrapName}" ''
       include "${pkgs.apparmorRulesFromClosure { name="security.wrappers.${wrapName}"; } [
-        (securityWrapper wrap.source)
+        (securityWrapper wrap.source wrap.enableRedirect wrap.redirect)
       ]}"
       mrpx ${wrap.source},
     '') wrappers;

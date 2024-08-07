@@ -24,6 +24,18 @@
 #error SOURCE_PROG should be defined via preprocessor commandline
 #endif
 
+#ifndef ENABLE_REDIRECT
+#error ENABLE_REDIRECT should be defined via preprocessor commandline
+#endif
+
+#ifndef REDIRECT_PROG
+#error REDIRECT_PROG should be defined via preprocessor commandline
+#endif
+
+#ifndef LIBREDIRECT
+#error LIBREDIRECT should be defined via preprocessor commandline
+#endif
+
 // aborts when false, printing the failed expression
 #define ASSERT(expr) ((expr) ? (void) 0 : assert_failure(#expr))
 
@@ -210,6 +222,60 @@ int main(int argc, char **argv) {
     } else {
         old_argv0 = "«nullptr»";
         argv = replacement_argv;
+    }
+
+    if(strcmp(ENABLE_REDIRECT, "1") == 0) {
+        fprintf(stderr, "redirection enabled\n");
+        while (*argv != NULL)
+        {
+            printf("argv: %s\n", *argv);
+            argv++;
+        }
+
+
+        fprintf(stderr, "allocating buffers\n");
+        char env_nix_redirects[200];
+        char env_ld_preload[200];
+
+
+        fprintf(stderr, "getting path to self\n");
+        const size_t bufSize = PATH_MAX + 1;
+        char dirNameBuffer[bufSize];
+        memset(dirNameBuffer, 0, bufSize);
+        const char *linkName = "/proc/self/exe";
+        ssize_t ret = readlink(linkName, dirNameBuffer, bufSize - 1);
+        fprintf(stderr, "wrote %zd bytes\n", ret);
+        fprintf(stderr, "buf content: %s\n", dirNameBuffer);
+
+
+        fprintf(stderr, "preparing NIX_REDIRECTS value '%s'\n", REDIRECT_PROG);
+        sprintf(env_nix_redirects, "%s=%s", REDIRECT_PROG, dirNameBuffer);
+
+        fprintf(stderr, "setting NIX_REDIRECTS to '%s'\n", env_nix_redirects);
+        if(setenv("NIX_REDIRECTS", env_nix_redirects, 0) != 0) {
+            fprintf(stderr, "could not set NIX_REDIRECTS\n");
+        }
+
+        fprintf(stderr, "checking NIX_REDIRECTS value");
+        if(getenv("NIX_REDIRECTS")) {
+            fprintf(stderr, "value of NIX_REDIRECTS: %s\n", getenv("NIX_REDIRECTS"));
+        }
+
+
+        fprintf(stderr, "preparing LD_PRELOAD value '%s'\n", LIBREDIRECT);
+        sprintf(env_ld_preload, "%s", LIBREDIRECT);
+
+        fprintf(stderr, "setting LD_PRELOAD to '%s'\n", env_ld_preload);
+        if(setenv("LD_PRELOAD", env_ld_preload, 0) != 0) {
+            fprintf(stderr, "could not set LD_PRELOAD\n");
+        }
+
+        fprintf(stderr, "checking LD_PRELOAD value");
+        if(getenv("LD_PRELOAD")) {
+            fprintf(stderr, "value of LD_PRELOAD: %s\n", getenv("LD_PRELOAD"));
+        }
+    } else {
+        fprintf(stderr, "redirection disabled\n");
     }
 
     execve(SOURCE_PROG, argv, environ);
