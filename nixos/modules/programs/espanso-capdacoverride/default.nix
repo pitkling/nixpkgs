@@ -16,6 +16,7 @@ in
   options = {
     programs.espanso.capdacoverride = {
       enable = (lib.mkEnableOption "espanso-wayland overlay with DAC_OVERRIDE capability") // {
+        default = true;
         description = ''
           Creates an espanso binary with the DAC_OVERRIDE capability (via `security.wrappers`) and overlays `pkgs.espanso-wayland` such that self-forks call the capability-enabled binary.
           Required for `pkgs.espanso-wayland` to work correctly if not run with root privileges.

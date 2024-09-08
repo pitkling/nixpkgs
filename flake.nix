@@ -188,6 +188,9 @@
               }
         */
         readOnlyPkgs = ./nixos/modules/misc/nixpkgs/read-only.nix;
+
+        # export module from PR #328890 (to fix #249364) until PR (or alternative) is merged
+        espanso-capdacoverride = ./nixos/modules/programs/espanso-capdacoverride;
       };
     };
 }
