@@ -13,12 +13,12 @@
 #   * https://github.com/NixOS/nixpkgs/pull/260715
 let
   pname = "libfprint-2-tod1-broadcom";
-  version = "5.12.018";
+  version = "6.1.26";
 
   src = fetchgit {
     url = "git://git.launchpad.net/${pname}";
-    rev = "86acc29291dbaf6216b7fadf50ef1e7222f6eb2a";    # head of jammy-staging branch as of 2024-11-20
-    hash = "sha256-nCkAqAi1AD3qMIU3maMuOUY6zG6+wDkqUMaHEKcLTko=";
+    rev = "f73dea98646c562f4660c900716ea4dae7b153a7";    # head of jammy branch as of 2024-11-20
+    hash = "sha256-oxn4CDxm8nVr2b6I6ixnx25XsZK7c9rMMrz5vaK0aM8=";
     name = "${pname}-unpacked-${version}";
   };
 
@@ -65,8 +65,8 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -v -D -m 444 -t "$out/lib/libfprint-2/tod-1/" usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-2-tod-1-broadcom.so
-    install -v -D -m 444 -t "$out/lib/udev/rules.d/"      lib/udev/rules.d/60-libfprint-2-device-broadcom.rules
+    install -v -D -m 444 -t "$out/lib/libfprint-2/tod-1/" usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-2-tod-1-broadcom*.so
+    install -v -D -m 444 -t "$out/lib/udev/rules.d/"      lib/udev/rules.d/60-libfprint-2-device-broadcom*.rules
     runHook postInstall
   '';
 
