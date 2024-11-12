@@ -1,6 +1,6 @@
 {
   autoPatchelfHook,
-  fetchzip,
+  fetchgit,
   lib,
   libfprint-tod,
   openssl,
@@ -15,11 +15,11 @@ let
   pname = "libfprint-2-tod1-broadcom";
   version = "5.12.018";
 
-  src = fetchzip {
-    url = "http://dell.archive.canonical.com/updates/pool/public/libf/${pname}/${pname}_${version}.orig.tar.gz";
-    hash = "sha256-0C2PpYpEJNrU+8NT95w4QV0J5nHQisMY94Czw3jQOzw=";
-    pname = "${pname}-unpacked";
-    inherit version;
+  src = fetchgit {
+    url = "git://git.launchpad.net/${pname}";
+    rev = "86acc29291dbaf6216b7fadf50ef1e7222f6eb2a";    # head of jammy-staging branch as of 2024-11-20
+    hash = "sha256-nCkAqAi1AD3qMIU3maMuOUY6zG6+wDkqUMaHEKcLTko=";
+    name = "${pname}-unpacked-${version}";
   };
 
   wrapperLibName = "wrapper-lib.so";
@@ -65,8 +65,8 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    install -D -t "$out/lib/libfprint-2/tod-1/" -m 644 -v usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-2-tod-1-broadcom.so
-    install -D -t "$out/lib/udev/rules.d/"      -m 644 -v lib/udev/rules.d/60-libfprint-2-device-broadcom.rules
+    install -v -D -m 444 -t "$out/lib/libfprint-2/tod-1/" usr/lib/x86_64-linux-gnu/libfprint-2/tod-1/libfprint-2-tod-1-broadcom.so
+    install -v -D -m 444 -t "$out/lib/udev/rules.d/"      lib/udev/rules.d/60-libfprint-2-device-broadcom.rules
     runHook postInstall
   '';
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Broadcom driver module for libfprint-2-tod Touch OEM Driver (from Dell)";
-    homepage = "http://dell.archive.canonical.com/updates/pool/public/libf/libfprint-2-tod1-broadcom/";
+    homepage = "https://launchpad.net/libfprint-2-tod1-broadcom";
     license = licenses.unfree;
     maintainers = with maintainers; [ pitkling ];
     platforms = [ "x86_64-linux" ];
