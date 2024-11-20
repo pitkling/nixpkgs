@@ -76,6 +76,10 @@ stdenv.mkDerivation {
       --rename-dynamic-symbols fopen_name_map \
       --add-needed ${wrapperLibName} \
       "$out/lib/libfprint-2/tod-1/libfprint-2-tod-1-broadcom.so"
+    patchelf \
+      --rename-dynamic-symbols fopen_name_map \
+      --add-needed ${wrapperLibName} \
+      "$out/lib/libfprint-2/tod-1/libfprint-2-tod-1-broadcom-cv3plus.so"
   '';
 
   passthru.driverPath = "/lib/libfprint-2/tod-1";
