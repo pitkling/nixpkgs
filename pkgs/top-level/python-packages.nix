@@ -7773,6 +7773,12 @@ self: super: with self; {
 
   lexilang = callPackage ../development/python-modules/lexilang { };
 
+  lgpio = toPythonModule (pkgs.lgpio.override {
+    inherit buildPythonPackage;
+    pyProject = "PY_LGPIO";
+    lgpioWithoutPython = pkgs.lgpio;
+  });
+
   lhapdf = toPythonModule (pkgs.lhapdf.override { python3 = python; });
 
   lib4package = callPackage ../development/python-modules/lib4package { };
@@ -11161,6 +11167,10 @@ self: super: with self; {
   piep = callPackage ../development/python-modules/piep { };
 
   piexif = callPackage ../development/python-modules/piexif { };
+
+  pigpio = toPythonModule (pkgs.pigpio.override {
+    inherit buildPythonPackage;
+  });
 
   pijuice = callPackage ../development/python-modules/pijuice { };
 
@@ -15188,6 +15198,11 @@ self: super: with self; {
   rfcat = callPackage ../development/python-modules/rfcat { };
 
   rflink = callPackage ../development/python-modules/rflink { };
+
+  rgpio = toPythonModule (pkgs.lgpio.override {
+    inherit buildPythonPackage;
+    pyProject = "PY_RGPIO";
+  });
 
   rich = callPackage ../development/python-modules/rich { };
 
