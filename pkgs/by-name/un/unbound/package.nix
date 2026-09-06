@@ -87,7 +87,10 @@ stdenv.mkDerivation (finalAttrs: {
       flex
       bison
     ]
-    ++ lib.optionals withPythonModule [ swig ];
+    ++ lib.optionals withPythonModule [
+      python
+      swig
+    ];
 
   buildInputs = [
     openssl
@@ -97,6 +100,7 @@ stdenv.mkDerivation (finalAttrs: {
     bashNonInteractive
   ]
   ++ lib.optionals withSystemd [ systemd ]
+  ++ lib.optionals withDNSTAP [ protobufc ]
   ++ lib.optionals withDoH [ libnghttp2 ]
   ++ lib.optionals withDoQ [ ngtcp2 ]
   ++ lib.optionals withPythonModule [ python ];
