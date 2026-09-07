@@ -20,7 +20,7 @@
   pango,
   pkg-config,
   rustPlatform,
-  typescript_5,
+  typescript_7,
   webkitgtk_4_1,
   wrapGAppsHook4,
   zlib,
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nodejs
     npmHooks.npmConfigHook
     pkg-config
-    typescript_5
+    typescript_7
     wrapGAppsHook4
   ];
 

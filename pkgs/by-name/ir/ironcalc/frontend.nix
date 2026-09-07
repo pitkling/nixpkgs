@@ -10,7 +10,7 @@
   wasm-bindgen-cli_0_2_108,
   wasm-pack,
   nodejs,
-  typescript_5,
+  typescript_7,
   lld,
   writableTmpDirAsHomeHook,
 
@@ -38,7 +38,7 @@ let
       wasm-bindgen-cli_0_2_108
       wasm-pack
       nodejs
-      typescript_5
+      typescript_7
       lld
       writableTmpDirAsHomeHook
     ];
