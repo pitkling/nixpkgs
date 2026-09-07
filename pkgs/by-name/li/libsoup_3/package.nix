@@ -148,6 +148,8 @@ stdenv.mkDerivation rec {
     glib
   ];
 
+  strictDeps = true;
+
   mesonFlags = [
     "-Dtls_check=false" # glib-networking is a runtime dependency, not a compile-time dependency
     "-Dgssapi=disabled"
