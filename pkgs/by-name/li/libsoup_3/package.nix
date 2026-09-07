@@ -189,6 +189,8 @@ stdenv.mkDerivation rec {
     };
   };
 
+  __structuredAttrs = true;
+
   meta = {
     description = "HTTP client/server library for GNOME";
     homepage = "https://gitlab.gnome.org/GNOME/libsoup";
