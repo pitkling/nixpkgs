@@ -703,6 +703,7 @@ in
     inherit pkgs runTest;
     inherit (pkgs) lib;
   };
+  gitea-actions-runner = runTest ./gitea-actions-runner.nix;
   github-runner = runTest ./github-runner.nix;
   gitlab = import ./gitlab {
     inherit runTest;
@@ -1343,6 +1344,9 @@ in
     (handleTestOn [ "x86_64-linux" ] ./openstack-image.nix { }).userdata or { };
   opentabletdriver = runTest ./opentabletdriver.nix;
   opentelemetry-collector = runTest ./opentelemetry-collector.nix;
+  opentelemetry-collector-validate = pkgs.callPackage ./opentelemetry-collector-validate.nix {
+    inherit evalSystem;
+  };
   openvscode-server = runTest ./openvscode-server.nix;
   openvswitch = runTest ./openvswitch.nix;
   optee = runTestOn [ "aarch64-linux" ] ./optee.nix;
