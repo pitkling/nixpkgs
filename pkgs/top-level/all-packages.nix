@@ -6238,6 +6238,7 @@ with pkgs;
       };
 
   nettle = import ../development/libraries/nettle { inherit callPackage fetchurl; };
+  nettle_4 = import ../development/libraries/nettle/4.nix { inherit callPackage fetchurl; };
 
   libnghttp2 = nghttp2.lib;
 
