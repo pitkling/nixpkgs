@@ -13305,7 +13305,7 @@
   };
   jfr = {
     name = "Joseph Fox-Rabinovitz";
-    github = " joe-saronic";
+    github = "joe-saronic";
     githubId = 156837150;
   };
   jfroche = {
@@ -16368,6 +16368,13 @@
     github = "liberodark";
     githubId = 4238928;
     name = "liberodark";
+  };
+  libewa = {
+    email = "linus@libewa.xyz";
+    github = "libewa";
+    githubId = 67926131;
+    name = "Linus Warnatz";
+    keys = [ { fingerprint = "EBD0 29E0 73D2 959A 9DC1  A74A 7BCA 3874 C2A0 475C"; } ];
   };
   libjared = {
     email = "jared@perrycode.com";
@@ -29375,6 +29382,12 @@
     github = "tobim";
     githubId = 858790;
     name = "Tobias Mayer";
+  };
+  tobinio = {
+    email = "tobias.frischmann@proton.me";
+    github = "ToBinio";
+    githubId = 81473300;
+    name = "Tobias Frischmann";
   };
   tobz619 = {
     email = "toloke@yahoo.co.uk";

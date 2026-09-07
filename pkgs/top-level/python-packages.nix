@@ -12507,8 +12507,6 @@ self: super: with self; {
 
   openccu-loom-client = callPackage ../development/python-modules/openccu-loom-client { };
 
-  openccu-loom-types = callPackage ../development/python-modules/openccu-loom-types { };
-
   opencensus = callPackage ../development/python-modules/opencensus { };
 
   opencensus-context = callPackage ../development/python-modules/opencensus-context { };
@@ -15358,6 +15356,8 @@ self: super: with self; {
   pymailgunner = callPackage ../development/python-modules/pymailgunner { };
 
   pymanopt = callPackage ../development/python-modules/pymanopt { };
+
+  pymap3d = callPackage ../development/python-modules/pymap3d { };
 
   pymarshal = callPackage ../development/python-modules/pymarshal { };
 
@@ -19662,6 +19662,8 @@ self: super: with self; {
 
   splunk-sdk = callPackage ../development/python-modules/splunk-sdk { };
 
+  spmd-types = callPackage ../development/python-modules/spmd-types { };
+
   spotapi = callPackage ../development/python-modules/spotapi { };
 
   spotifyaio = callPackage ../development/python-modules/spotifyaio { };
@@ -20851,6 +20853,8 @@ self: super: with self; {
   torch-bin = callPackage ../development/python-modules/torch/bin { triton = self.triton-bin; };
 
   torch-c-dlpack-ext = callPackage ../development/python-modules/torch-c-dlpack-ext { };
+
+  torch-checkpointing = callPackage ../development/python-modules/torch-checkpointing { };
 
   torch-cluster = callPackage ../development/python-modules/torch-cluster { };
 

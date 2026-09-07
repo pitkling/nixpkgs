@@ -218,7 +218,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     homepage = "https://github.com/linuxmint/cinnamon";
     description = "Cinnamon desktop environment";
-    license = lib.licenses.gpl2;
+    license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
     teams = [ lib.teams.cinnamon ];
   };

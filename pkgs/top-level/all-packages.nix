@@ -10613,14 +10613,6 @@ with pkgs;
     hasktags = haskellPackages.hasktags;
   };
 
-  inherit (callPackage ../applications/networking/cluster/terraform { })
-    mkTerraform
-    terraform_1
-    terraform_plugins_test
-    ;
-
-  terraform = terraform_1;
-
   terraform-providers = recurseIntoAttrs (
     callPackage ../applications/networking/cluster/terraform-providers { }
   );
