@@ -23,6 +23,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     description = "Tool for calculating which UK Gilt will give the best return if held to maturity";
     homepage = "https://github.com/simonhollingshead/gilt-rs";
     license = lib.licenses.mit;
+    mainProgram = "gilt";
     maintainers = with lib.maintainers; [ ambroisie ];
   };
 })
