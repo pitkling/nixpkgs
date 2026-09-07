@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch2,
   cmake,
   libiconv,
   nix-update-script,
@@ -19,6 +20,15 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-PKL495sfkRKjHfN4RroW1dwudJV2JWN7ogB8hyDxj5Y=";
   };
+
+  # https://github.com/simdutf/simdutf/issues/1032
+  # FIXME: remove in next release
+  patches = lib.optionals stdenv.hostPlatform.isLoongArch64 [
+    (fetchpatch2 {
+      url = "https://github.com/simdutf/simdutf/commit/1f8ef080486c31cbd70db21a05a008700eb03aae.patch?full_index=1";
+      hash = "sha256-p1qJFUQ4KhSSLSBIiC9se/TxrWFqywdVKNgh78TkMyE=";
+    })
+  ];
 
   cmakeFlags = [
     (lib.cmakeBool "BUILD_SHARED_LIBS" (!stdenv.hostPlatform.isStatic))
