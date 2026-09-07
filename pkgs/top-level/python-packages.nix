@@ -6077,6 +6077,10 @@ self: super: with self; {
 
   fints = callPackage ../development/python-modules/fints { };
 
+  finufft = callPackage ../development/python-modules/finufft {
+    inherit (pkgs) finufft;
+  };
+
   finvizfinance = callPackage ../development/python-modules/finvizfinance { };
 
   fiona = callPackage ../development/python-modules/fiona { };
@@ -15826,16 +15830,7 @@ self: super: with self; {
 
   pyqt-builder = callPackage ../development/python-modules/pyqt-builder { };
 
-  pyqt3d = pkgs.libsForQt5.callPackage ../development/python-modules/pyqt3d {
-    inherit (self)
-      buildPythonPackage
-      pyqt5
-      pyqt-builder
-      python
-      setuptools
-      sip
-      ;
-  };
+  pyqt3d = callPackage ../development/python-modules/pyqt3d { };
 
   pyqt5 = callPackage ../development/python-modules/pyqt/5.x.nix { inherit (pkgs) mesa; };
 
@@ -15863,31 +15858,11 @@ self: super: with self; {
     inherit (pkgs) mesa;
   };
 
-  pyqtchart = pkgs.libsForQt5.callPackage ../development/python-modules/pyqtchart {
-    inherit (self)
-      buildPythonPackage
-      pyqt5
-      pyqt-builder
-      python
-      setuptools
-      sip
-      ;
-  };
+  pyqtchart = callPackage ../development/python-modules/pyqtchart { };
 
   pyqtdarktheme = callPackage ../development/python-modules/pyqtdarktheme { };
 
-  pyqtdatavisualization =
-    pkgs.libsForQt5.callPackage ../development/python-modules/pyqtdatavisualization
-      {
-        inherit (self)
-          buildPythonPackage
-          pyqt5
-          pyqt-builder
-          python
-          setuptools
-          sip
-          ;
-      };
+  pyqtdatavisualization = callPackage ../development/python-modules/pyqtdatavisualization { };
 
   pyqtgraph = callPackage ../development/python-modules/pyqtgraph { };
 
