@@ -21,6 +21,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-PKL495sfkRKjHfN4RroW1dwudJV2JWN7ogB8hyDxj5Y=";
   };
 
+  outputs = [
+    "out"
+    "dev"
+  ];
+
   # https://github.com/simdutf/simdutf/issues/1032
   # FIXME: remove in next release
   patches = lib.optionals stdenv.hostPlatform.isLoongArch64 [
