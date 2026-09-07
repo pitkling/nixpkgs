@@ -88,7 +88,6 @@ buildPythonPackage (finalAttrs: {
     # http://metadata.ftp-master.debian.org/changelogs/non-free/x/xml2rfc/xml2rfc_2.9.6-1_copyright
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [
-      vcunat
       yrashk
     ];
   };

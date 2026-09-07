@@ -14658,6 +14658,12 @@
     githubId = 56224949;
     name = "Mia Kanashi";
   };
+  kangazero = {
+    name = "Samuel Wai Weng Yong";
+    email = "samuelyongw@gmail.com";
+    github = "KangaZero";
+    githubId = 107836643;
+  };
   kaptcha0 = {
     name = "J'C Kabunga";
     github = "kaptcha0";
